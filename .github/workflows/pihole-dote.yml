@@ -1,6 +1,6 @@
 # This is a basic workflow to help you get started with Actions
 
-name: Pihole Dockerbuild
+name: Pihole DoTE Dockerbuild
 
 # Controls when the action will run. 
 on:
@@ -8,7 +8,7 @@ on:
   # Triggers the workflow on push or pull request events but only for the master branch
   push:
     paths:
-     - run-pihole/Dockerfile
+     - run-pihole/DoTE.Dockerfile
 
 jobs:
   buildx:
@@ -31,5 +31,5 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}  
       -
-        name: build pihole
-        run: docker buildx build --platform=linux/amd64,linux/arm64 run-pihole -t boostchicken/pihole:latest --push
+        name: build pihole dote
+        run: docker buildx build --platform=linux/amd64,linux/arm64 run-pihole -f run-pihole/DoTE.Dockerfile -t boostchicken/pihole-dote:latest --push
