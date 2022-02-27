@@ -1,6 +1,6 @@
 # This is a basic workflow to help you get started with Actions
 
-name: Pihole Dockerbuild
+name: Pihole DoH Container
 
 # Controls when the action will run. 
 on:
@@ -9,11 +9,19 @@ on:
   push:
     paths:
      - run-pihole/Dockerfile
+  schedule:
+    - cron: "0 0 */15 * *"
+  
 
 jobs:
   buildx:
     runs-on: ubuntu-latest
     steps:
+    
+      - name: Set the version
+        id: set_version
+        run: |
+          echo VERSION=$(curl --silent "https://api.github.com/repos/pi-hole/docker-pi-hole/releases/latest" | jq -r '.["tag_name"]')>> $GITHUB_ENV
       -
         name: Checkout
         uses: actions/checkout@v2
@@ -29,7 +37,8 @@ jobs:
         uses: docker/login-action@v1
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}  
+          password: ${{ secrets.DOCKERHUB_TOKEN }} 
+
       -
-        name: build pihole
-        run: docker buildx build --platform=linux/amd64,linux/arm64 run-pihole -t boostchicken/pihole:latest --push
+        name: build pihole $VERSION
+        run: docker buildx build --platform=linux/amd64,linux/arm64 --build-arg VERSION=${{ env.VERSION }} run-pihole -t boostchicken/pihole:latest -t boostchicken/pihole:${{ env.VERSION }} --push

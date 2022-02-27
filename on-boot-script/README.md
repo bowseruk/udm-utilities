@@ -28,7 +28,19 @@
 
 * Built on Ubuntu-20.04 on Windows 10/WSL2
 
-## Steps
+## Install
+
+You can execute in UDM/Pro/SE and UDR with:
+
+```bash
+curl -fsL "https://raw.githubusercontent.com/boostchicken/udm-utilities/HEAD/on-boot-script/remote_install.sh" | /bin/sh
+```
+
+This is a force to install script so will uninstall any previous version and install on_boot keeping your on boot files.
+
+This will also install CNI Plugins & CNI Bridge scripts. If you are using UDMSE/UDR remember that you must install podman manually because there is no podman.
+
+## Manually Install Steps
 
 1. Get into the unifios shell on your udm
 
@@ -44,12 +56,12 @@
     exit
     ```
 
-3. Copy any shell scripts you want to run to /mnt/data/on_boot.d on your UDM (not the unifi-os shell) and make sure they are executable and have the correct shebang (#!/bin/sh)
+3. Copy any shell scripts you want to run to /mnt/data/on_boot.d on your UDM (not the unifi-os shell) and make sure they are executable and have the correct shebang (#!/bin/sh). Additionally, scripts need to have a `.sh` extention in their filename.
 
     Examples:
     * Start a DNS Container [10-dns.sh](../dns-common/on_boot.d/10-dns.sh)
     * Start wpa_supplicant [on_boot.d/10-wpa_supplicant.sh](examples/udm-files/on_boot.d/10-wpa_supplicant.sh)
-    * Add a persistent ssh key for the root user [on_boot.d/15-add-root-ssh-key.sh](examples/udm-files/on_boot.d/15-add-root-ssh-key.sh)
+    * Add a persistent ssh key for the root user [on_boot.d/15-add-root-ssh-keys.sh](examples/udm-files/on_boot.d/15-add-root-ssh-keys.sh)
 
 ## Version History
 
