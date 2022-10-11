@@ -4,11 +4,12 @@
 
 ## Prerequisities
 
-- Working **`on_boot.d`** setup (check [boostchicken/udm-utilities#on-boot-script](https://github.com/boostchicken-dev/udm-utilities/tree/master/on-boot-script) for instructions)
+- Working **`on_boot.d`** setup (check [unifi-utilities/unifios-utilities#on-boot-script](https://github.com/unifi-utilities/unifios-utilities/tree/main/on-boot-script) for instructions)
 - A VLAN network (you can use one you're already using)
 
 #### Optional:
 
+- [container-common](../container-common/README.md) to prevent growing disk usage from accumulating logs
 - Port forwarding, ie. WAN -> 10.0.20.4 (TCP/1883) if needed
 
 > **Note:** Throughout this guide I'm using `VLAN 20` with gateway `10.0.20.1/24`, Mosquitto's IP will be `10.0.20.4`.
@@ -74,6 +75,6 @@ If you want to know what Mosquitto is doing, run `$ podman logs -f mosquitto` to
 
 ## Credits
 
-Huge thanks to @boostchicken and his incredible work on [udm-utilities](https://github.com/boostchicken/udm-utilities)!  
+Huge thanks to @boostchicken and his incredible work on [unifios-utilities](https://github.com/unifi-utilities/unifios-utilities)!  
 
-Guide based upon the incredible contributors of [boostchicken/udm-utilities](https://github.com/boostchicken/udm-utilities)!
+Guide based upon the incredible contributors of [boostchicken/unifios-utilities](https://github.com/unifi-utilities/unifios-utilities)!
