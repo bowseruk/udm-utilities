@@ -1,8 +1,14 @@
-# unifios-utilities [![Discord](https://img.shields.io:/discord/939817841107034172?label=Discord&logo=Discord&style=for-the-badge "Discord")](https://discord.gg/8zqrQJFghg)
+# unifios-utilities [![Discord](https://img.shields.io:/discord/939817841107034172?label=Discord&logo=Discord&style=for-the-badge "Discord")](https://discord.gg/8zqrQJFghg) [![!Cloudflare](https://img.shields.io/badge/Cloudflare-F38020?style=for-the-badge&logo=Cloudflare&logoColor=white)](https:///www.cloudflare.com)
 
-[![UDM-Pro Podman](https://github.com/unifi-utilities/unifios-utilities/actions/workflows/podman-udmp.yml/badge.svg)](https://github.com/unifi-utilities/unifios-utilities/actions/workflows/podman-udmp.yml)
-[![UDM-SE Podman](https://github.com/unifi-utilities/unifios-utilities/actions/workflows/podman-udmse.yml/badge.svg?branch=main)](https://github.com/unifi-utilities/unifios-utilities/actions/workflows/podman-udmse.yml)
+[![UDM Podman](https://github.com/unifi-utilities/unifios-utilities/actions/workflows/podman-udm.yml/badge.svg)](https://github.com/unifi-utilities/unifios-utilities/actions/workflows/podman-udm.yml)
+[![UDM-Pro-SE Podman](https://github.com/unifi-utilities/unifios-utilities/actions/workflows/podman-udmp-udmse.yml/badge.svg?branch=main)](https://github.com/unifi-utilities/unifios-utilities/actions/workflows/podman-udmp-udmse.yml)
 
+## Branches
+1. [1.12.x](https://github.com/unifi-utilities/unifios-utilities/tree/v1.12.x) - Support for 1.x.x firmware line
+1. [main](https://github.com/unifi-utilities/unifios-utilities) - Support for 2.4.x and above
+
+### Current Branch is main, supporting 2.5.x
+-----
 A collection of things to enhance the capabilities of your Unifi Dream Machine, Dream Machine Pro or UXG-Pro.
 
 ## Custom Kernel
@@ -15,10 +21,21 @@ Please see the repo and please use at your own risk. This a much larger change t
 ## Custom Podman Builds for UDM-SE
 
 All artifacts can be found on IPFS
-<https://unifi.boostchicken.io>
+
+[IPFS Gateway](https://unifi.boostchicken.io) ![Cloudflare](https://img.shields.io/badge/Cloudflare-F38020?style=for-the-badge&logo=Cloudflare&logoColor=white)
 
 Extract the zip to the root of your device!
 Look at the assets on the Podman workflow.
+
+### UDM Base
+Standard Image for base UDM, systemd removed
+
+### UDM Pro / SE
+Base build with apparmor, systemd, devicemapper removal, and overlay kept
+
+Works on PRO on 2.x, for 1.x use the UDM Base still. 
+
+*Does not work on 3.x use nspawn-container*
 
 ## macvlan kernel module for UDR
 
@@ -28,7 +45,7 @@ at [macvlan-unifi-udr](https://github.com/whi-tw/macvlan-unifi-udr).
 
 ## General Tools
 
-### on-boot-script
+### on-boot-script-2.x
 
 Do this first. Enables `init.d` style scripts to run on every boot of your UDM.
 Includes examples to run `wpa-supplicant/eap-proxy` and/or `ntop-ng` on startup.
@@ -36,10 +53,16 @@ Follow this [readme](https://github.com/unifi-utilities/unifios-utilities/blob/m
 
 **It enables complete customization of your UDM/P and fills the gap that config.gateway.json left behind.**
 
+### nspawn-container
+Enables containers on UniFiOS 3.x,  this replaces podman.
+
 ### podman-update
 
-Updates Podman, conmon, and runc to a recent version.
-This allows docker-compose usage as well.
+Updates Podman, conmon, and runc to a recent version.This allows docker-compose usage as well.
+
+Works on PRO on 2.x, for 1.x use the UDM Base still. 
+
+**Does not working on 3.x use nspawn-container**
 
 ### container-common
 
@@ -51,11 +74,6 @@ Updates container defaults to maintain **stable disk usage footprint** of custom
 
 If you need python3 on your UDM, generally not recommended, can always use it in unifi-os container.
 
-### UDM Persistent SSH Keys Script
-
-<https://github.com/fire1ce/UDM-Persistent-SSH-Keys>
-
-Script to persist ssh keys after reboot or firmware update.
 
 ## VPN Servers / Clients
 | Name 	| URL 	| Description 	|
@@ -64,6 +82,7 @@ Script to persist ssh keys after reboot or firmware update.
 | WireGuard kernel module 	| <https://github.com/tusc/wireguard-kmod>   	| Uses a prebuilt linux kernel module, without the need to move to a custom kernel.   	|
 |  OpenConnect VPN    	|  <https://github.com/shuguet/openconnect-udm>  	|  OpenConnect VPN Client for the UniFi Dream Machine Pro (Unofficial).|
 | split-vpn | <https://github.com/peacey/split-vpn> |A split tunnel VPN script for the UDM with policy based routing. This helper script can be used on your UDM to route select VLANs, clients, or even domains through a VPN connection. It supports OpenVPN, WireGuard, and OpenConnect (Cisco AnyConnect) clients running directly on your UDM, and external VPN clients running on other servers on your network. |
+| Zerotier | <https://zerotier.com> |ZeroTier provides network control and P2P functionality · Use ZeroTier to create products which run on their own decentralized networks |
 
 
 ## DNS Providers
@@ -90,7 +109,7 @@ Run Pi-hole on your UDM with podman.
 Also contains custom image for Pi-hole with `cloudflared`.
 
 ### PiHole with DoTe
-[![!Docker Pulls](https://img.shields.io/docker/pulls/boostchicken/pihole-dote.svg?color=green&labelColor=555555&logoColor=ffffff&style=for-the-badge&label=pulls&logo=docker)](https://hub.docker.com/u/boostchicken)
+[![!Docker Pulls](https://img.shields.io/docker/pulls/pombeirp/pihole-dote.svg?color=green&labelColor=555555&logoColor=ffffff&style=for-the-badge&label=pulls&logo=docker)](https://hub.docker.com/r/pombeirp/pihole-dote)
 
 Designed by: <https://github.com/chrisstaite/DoTe/>
 
@@ -101,6 +120,7 @@ Alternative to mine which uses DoTe
 Run AdguardHome on your UDM with podman.
 
 ### Cloudflare DDNS
+![Cloudflare](https://img.shields.io/badge/Cloudflare-F38020?style=for-the-badge&logo=Cloudflare&logoColor=white)
 
 Update your cloudflare domains from your UDM with podman.
 
@@ -119,6 +139,7 @@ Update your cloudflare domains from your UDM with podman.
 |udm-proxy           |    <https://github.com/xpherism/udm-proxy>           |Run a reverse proxy (using caddy in vlan) on the udm-pro. |
 | Telegram-Notifications On WAN Failover          |   <https://github.com/fire1ce/UDM-Failover-Telegram-Notifications>            | Use telegram bot to be notified of a wan failover with local account|
 
+[![!Protected by Cloudflare](https://github.com/unifi-utilities/unifios-utilities/assets/427295/5cda2367-fbda-438e-b942-2ebf4a105b82)](https://cloudflare.com)
 
 
 ## Unsupported / No longer maintained
@@ -128,7 +149,7 @@ Update your cloudflare domains from your UDM with podman.
 |------	|-----	|-------------	|
 |suricata |   	| Updates suricata to a recent version.  Now in firmware    	|
 | Jumbo Frames   	| <https://github.com/kalenarndt/udmp-jumbo-frames> 	|   native jumbo frame support for the UDM and UDM-Pro is added in the 1.12.13 EA firmware, support for the UDM-SE is not yet announced.   	|
-
+| UDM Persistent SSH Keys Script | <https://github.com/fire1ce/UDM-Persistent-SSH-Keys> | Stores SSH Keys. This functionality is now in firmware
 
 ## Reimaging your UDM
 
